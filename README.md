@@ -2,7 +2,7 @@
 
 ## Install
 1. Use `mctc-slide-menu.zip` from the repository root. To rebuild it after editing, run `./build-zip.sh` there.
-2. In WordPress, go to **Plugins → Add New Plugin → Upload Plugin**, upload the zip, install, and activate. To update an installed copy, upload the new zip the same way and choose **Replace current with uploaded**.
+2. In WordPress, go to **Plugins → Add New Plugin → Upload Plugin**, upload the zip, install, and activate. If an older copy is installed, choose **Replace current with uploaded**. You only need the zip once: after that the plugin updates itself from GitHub (see **Updates**).
 3. Set up your menus under **Appearance → Menus**. Indent items under their parent to create submenus.
 4. In **Divi → Theme Builder**, edit your global header. Add a **Text module**, switch its editor to Text mode, and paste the shortcode below. Keep this module visible on desktop, tablet, and phone. If the Text module adds stray `<p>` or `<br>` tags around the button, use a **Code module** instead.
 
@@ -15,6 +15,22 @@ The desktop menu holds the extra links for the flyout. On mobile, the drawer aut
 This plugin only adds the hamburger and drawer: in your existing Divi Menu module, go to **Advanced → Visibility** and disable it on Phone and Tablet. Keep the new hamburger module enabled on all devices.
 
 These are classic WordPress menus. If Appearance → Menus is missing, open `/wp-admin/nav-menus.php` on your site.
+
+## Updates
+The plugin checks `main` on [github.com/jmlemon46/mctc-slide-menu](https://github.com/jmlemon46/mctc-slide-menu) using [Plugin Update Checker](https://github.com/YahnisElsts/plugin-update-checker) (in `lib/`).
+
+1. Edit the plugin and raise `Version:` at the top of `mctc-slide-menu.php` (for example 1.1.0 → 1.1.1). Pushes that don't raise the version never reach the site.
+2. Push to GitHub.
+3. WordPress shows **Update available** on the Plugins page. It checks about every 12 hours; click **Check for updates** under the plugin to check now. On the Plugins page, click **Enable auto-updates** for this plugin to have WordPress install updates on its own.
+4. Clear the SiteGround cache after an update.
+
+**Private repository:** WordPress needs a token to read it. On GitHub, go to **Settings → Developer settings → Fine-grained tokens**, create a token for only this repository with **Contents: Read-only**, and add it to `wp-config.php` (above "That's all, stop editing!"):
+
+```php
+define( 'MCTC_MENU_GITHUB_TOKEN', 'github_pat_...' );
+```
+
+A public repository needs no token.
 
 ## Options
 Menu names, slugs, and numeric IDs are accepted. Numeric IDs are the least ambiguous, and they keep working if you rename a menu.
