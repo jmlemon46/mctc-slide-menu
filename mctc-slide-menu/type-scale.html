@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fluid Type Scale</title>
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; background: #fff; color: #1a1a1a; margin: 24px 16px; }
+  button { font: inherit; padding: 8px 16px; margin-bottom: 16px; background: #2075BC; color: #fff; border: 0; border-radius: 6px; cursor: pointer; }
+  table { border-collapse: collapse; }
+  th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; font-size: 14px; }
+  th { background: #f2f2f2; }
+  td:nth-child(2) { font-family: ui-monospace, Menlo, monospace; }
+</style>
+</head>
+<body>
+<button id="copy">Copy table</button>
+<table id="scale">
+  <tr><th>Variable</th><th>Clamp</th><th>Min (px)</th><th>Max (px)</th><th>Usage</th></tr>
+  <tr><td>--text-xs</td><td>clamp(0.875rem, 0.8542rem + 0.0926vw, 0.9375rem)</td><td>14</td><td>15</td><td>Captions, small labels</td></tr>
+  <tr><td>--text-sm</td><td>clamp(1rem, 0.9792rem + 0.0926vw, 1.0625rem)</td><td>16</td><td>17</td><td>Small UI text, meta info</td></tr>
+  <tr><td>--text-base</td><td>clamp(1.125rem, 1.0833rem + 0.1852vw, 1.25rem)</td><td>18</td><td>20</td><td>Body text, italic highlight</td></tr>
+  <tr><td>--text-lg</td><td>clamp(1.1875rem, 1.125rem + 0.2778vw, 1.375rem)</td><td>19</td><td>22</td><td>Callout</td></tr>
+  <tr><td>--text-xl</td><td>clamp(1.5rem, 1.4167rem + 0.3704vw, 1.75rem)</td><td>24</td><td>28</td><td>H3 / H4</td></tr>
+  <tr><td>--text-2xl</td><td>clamp(2rem, 1.8333rem + 0.7407vw, 2.5rem)</td><td>32</td><td>40</td><td>H2 and heavy H2</td></tr>
+  <tr><td>--text-3xl</td><td>clamp(2.75rem, 2.5rem + 1.1111vw, 3.5rem)</td><td>44</td><td>56</td><td>H1</td></tr>
+  <tr><td>--text-4xl</td><td>clamp(3.5rem, 3.1667rem + 1.4815vw, 4.5rem)</td><td>56</td><td>72</td><td>Hero / display</td></tr>
+</table>
+<script>
+  document.getElementById('copy').addEventListener('click', async () => {
+    const table = document.getElementById('scale');
+    const tsv = [...table.rows].map(r => [...r.cells].map(c => c.textContent).join('\t')).join('\n');
+    const btn = document.getElementById('copy');
+    try {
+      await navigator.clipboard.write([new ClipboardItem({
+        'text/html': new Blob([table.outerHTML], { type: 'text/html' }),
+        'text/plain': new Blob([tsv], { type: 'text/plain' })
+      })]);
+      btn.textContent = 'Copied!';
+    } catch {
+      const range = document.createRange();
+      range.selectNode(table);
+      getSelection().removeAllRanges();
+      getSelection().addRange(range);
+      btn.textContent = 'Selected, press Cmd+C';
+    }
+  });
+</script>
+</body>
+</html>

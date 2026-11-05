@@ -1,0 +1,113 @@
+/*
+ * MCTC Slide Menu. Every rule is scoped to .mctc-* classes so nothing here touches the rest of the site.
+ *
+ * Customize by setting the public --mctc-menu-* variables (on :root, .mctc-dialog, or your own
+ * class="" from the shortcode). Each falls back to the MCTC palette. The --_* variables below are private.
+ * For anything else, prefix selectors with "body" (e.g. body .mctc-dialog .mctc-link) to win over this file.
+ */
+.mctc-trigger, .mctc-dialog {
+  --_blue: var(--mctc-blue, #2075bc);
+  --_navy: var(--mctc-navy, #004167);
+  --_mist: var(--mctc-mist, #f0f8ff);
+  --_white: var(--mctc-white, #fff);
+  --_forest: var(--mctc-forest, #147e1e);
+  --_focus: var(--mctc-menu-focus, var(--_blue));
+}
+.mctc-trigger {
+  --_trigger-bg: var(--mctc-menu-trigger-bg, var(--_navy));
+  --_trigger-color: var(--mctc-menu-trigger-color, var(--_white));
+  --_trigger-hover-bg: var(--mctc-menu-trigger-hover-bg, var(--_blue));
+  --_trigger-hover-color: var(--mctc-menu-trigger-hover-color, var(--_white));
+}
+.mctc-dialog {
+  --_width: var(--mctc-menu-width, min(840px, 88vw));
+  --_bg: var(--mctc-menu-bg, var(--_white));
+  --_accent: var(--mctc-menu-accent, var(--_blue));
+  --_accent-size: var(--mctc-menu-accent-size, 7px);
+  --_backdrop: var(--mctc-menu-backdrop, rgb(0 25 42 / .6));
+  --_speed: var(--mctc-menu-speed, 260ms);
+  --_font: var(--mctc-menu-font, inherit);
+  --_heading: var(--mctc-menu-heading, var(--_blue));
+  --_heading-size: var(--mctc-menu-heading-size, 18px);
+  --_heading-weight: var(--mctc-menu-heading-weight, 750);
+  --_link: var(--mctc-menu-link, var(--_navy));
+  --_link-size: var(--mctc-menu-link-size, 16px);
+  --_link-weight: var(--mctc-menu-link-weight, 450);
+  --_hover: var(--mctc-menu-hover, var(--_forest));
+  --_current: var(--mctc-menu-current, var(--_forest));
+  --_divider: var(--mctc-menu-divider, #dbe7ef);
+  --_button-bg: var(--mctc-menu-button-bg, var(--_mist));
+  --_button-hover-bg: var(--mctc-menu-button-hover-bg, var(--_navy));
+  --_button-hover-color: var(--mctc-menu-button-hover-color, var(--_white));
+  --_columns: var(--mctc-menu-columns, 3);
+  --_column-min: var(--mctc-menu-column-min, 200px);
+}
+
+/* Hamburger button */
+.mctc-widget { display: inline-flex; vertical-align: middle; }
+.mctc-trigger, .mctc-dialog button { appearance: none; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font: inherit; text-transform: none; letter-spacing: normal; box-shadow: none; margin: 0; }
+.mctc-trigger { width: 57px; height: 53px; padding: 12px; background: var(--_trigger-bg); color: var(--_trigger-color); border: 0; border-radius: 8px; }
+.mctc-trigger:hover { background: var(--_trigger-hover-bg); color: var(--_trigger-hover-color); }
+.mctc-trigger[hidden], .mctc-dialog [hidden] { display: none !important; }
+.mctc-trigger:focus-visible, .mctc-dialog :focus-visible { outline: 3px solid var(--_focus); outline-offset: 3px; }
+
+/* Drawer shell */
+dialog.mctc-dialog { position: fixed; inset: 0; box-sizing: border-box; width: 100%; max-width: none; height: 100%; height: 100dvh; max-height: none; margin: 0; padding: 0; border: 0; background: transparent; color: var(--_link); overflow: hidden; overflow: clip; font: inherit; font-family: var(--_font); }
+/* Scroll lock without moving the page: no position: fixed, so scroll position, Divi sticky headers and scroll scripts are untouched. */
+html.mctc-locked { overflow: hidden; scrollbar-gutter: stable; }
+dialog.mctc-dialog:not([open]) { display: none; }
+.mctc-dialog::backdrop { background: transparent; transition: background var(--_speed) ease; }
+.mctc-dialog.is-open::backdrop { background: var(--_backdrop); }
+.mctc-dialog *, .mctc-dialog *::before, .mctc-dialog *::after { box-sizing: border-box; }
+.mctc-panel { margin-left: auto; display: flex; flex-direction: column; width: var(--_width); height: 100%; background: var(--_bg); border-top: var(--_accent-size) solid var(--_accent); box-shadow: -16px 0 60px rgb(0 0 0 / .15); transform: translateX(105%); transition: transform var(--_speed) ease; }
+.mctc-dialog.is-open .mctc-panel { transform: translateX(0); }
+.mctc-panel-top { display: flex; flex: 0 0 auto; justify-content: flex-end; padding: 16px 20px 0; }
+.mctc-scroll { min-height: 0; flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 8px 32px max(40px, env(safe-area-inset-bottom)); }
+
+/* Buttons: close (X) and expand arrows */
+.mctc-dialog .mctc-close { flex-shrink: 0; width: 46px; height: 46px; padding: 10px; border: 1px solid var(--_divider); border-radius: 50%; background: var(--_button-bg); color: var(--_link); }
+.mctc-dialog .mctc-expand { flex: 0 0 44px; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 7px; background: var(--_button-bg); color: var(--_heading); }
+.mctc-dialog .mctc-close:hover, .mctc-dialog .mctc-expand:hover { background: var(--_button-hover-bg); color: var(--_button-hover-color); }
+.mctc-expand svg { transition: transform 160ms; pointer-events: none; }
+.mctc-expand[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+/* Reset theme list styles inside the drawer */
+.mctc-dialog nav, .mctc-dialog ul, .mctc-dialog li { display: block; position: static; float: none; width: auto; height: auto; max-height: none; margin: 0; padding: 0; list-style: none; background: transparent; border: 0; box-shadow: none; opacity: 1; visibility: visible; transform: none; }
+.mctc-dialog li::before, .mctc-dialog li::after, .mctc-dialog a::after { content: none; }
+
+/* Menu items */
+.mctc-dialog .mctc-tree { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.mctc-dialog .mctc-item--top { border-bottom: 1px solid var(--_divider); padding-bottom: 12px; }
+.mctc-dialog .mctc-row { display: flex; gap: 8px; align-items: center; }
+.mctc-dialog .mctc-link { display: flex; align-items: center; min-height: 44px; flex: 1; padding: 10px 8px; color: var(--_link); font-family: inherit; font-size: var(--_link-size); font-weight: var(--_link-weight); line-height: 1.45; text-decoration: none; overflow-wrap: anywhere; white-space: normal; }
+.mctc-dialog .mctc-link--top { color: var(--_heading); font-size: var(--_heading-size); font-weight: var(--_heading-weight); }
+.mctc-dialog .mctc-link:hover { color: var(--_hover); text-decoration: underline; text-underline-offset: 4px; }
+.mctc-dialog .mctc-link[aria-current="page"] { color: var(--_current); text-decoration: underline; text-underline-offset: 4px; }
+.mctc-dialog .mctc-submenu { padding-left: 12px; margin: 6px 0 0 8px; border-left: 2px solid var(--_divider); }
+
+/* Desktop "columns" layout: a sitemap with every sub page visible, flowing into columns without gaps.
+   The desktop nav is hidden at 980px and below, so these rules never affect mobile. */
+.mctc-dialog:where([data-layout="columns"]) .mctc-desktop .mctc-tree { display: block; columns: var(--_columns) var(--_column-min); column-gap: 32px; }
+.mctc-dialog:where([data-layout="columns"]) .mctc-desktop .mctc-item--top { break-inside: avoid; margin-bottom: 20px; }
+.mctc-dialog:where([data-layout="columns"]) .mctc-desktop .mctc-expand { display: none; }
+.mctc-dialog:where([data-layout="columns"]) .mctc-desktop .mctc-submenu[hidden] { display: block !important; }
+
+/* Desktop/mobile switch (980px matches Divi; also change it in menu.js) */
+.mctc-dialog .mctc-mobile { display: none; }
+@media (min-width: 981px) {
+  .mctc-noscript { display: none; }
+}
+@media (max-width: 980px) {
+  .mctc-dialog { --_width: var(--mctc-menu-width-mobile, min(460px, 86vw)); }
+  .mctc-panel-top { padding: 12px 12px 0; }
+  .mctc-scroll { padding: 4px 16px max(32px, env(safe-area-inset-bottom)); }
+  .mctc-dialog .mctc-desktop { display: none; }
+  .mctc-dialog .mctc-mobile { display: block; }
+  /* Mobile: no divider lines, and first-level sub pages line up with their main link. */
+  .mctc-dialog .mctc-mobile .mctc-item--top { border-bottom: 0; padding-bottom: 0; }
+  .mctc-dialog .mctc-mobile .mctc-submenu { border-left: 0; }
+  .mctc-dialog .mctc-mobile .mctc-item--top > .mctc-submenu { padding-left: 0; margin-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mctc-panel, .mctc-dialog::backdrop, .mctc-expand svg { transition: none; }
+}
