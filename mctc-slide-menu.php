@@ -2,7 +2,7 @@
 /**
  * Plugin Name: MCTC Slide Menu
  * Description: Accessible right-side navigation with separate desktop and mobile WordPress menus. Shortcode: [mctc_menu desktop="desktop-menu" mobile="mobile-menu"]
- * Version: 1.1.1
+ * Version: 1.2.0
  * Plugin URI: https://github.com/jmlemon46/mctc-slide-menu
  * Requires at least: 6.0
  * Requires PHP: 7.4
@@ -31,6 +31,16 @@ add_action( 'wp_enqueue_scripts', function () {
     $js = 'assets/menu.js';
     wp_enqueue_style( 'mctc-slide-menu', plugins_url( $css, __FILE__ ), array(), (string) filemtime( plugin_dir_path( __FILE__ ) . $css ) );
     wp_enqueue_script( 'mctc-slide-menu', plugins_url( $js, __FILE__ ), array(), (string) filemtime( plugin_dir_path( __FILE__ ) . $js ), true );
+
+    // Header search toggle for .search-icon and #header-search-section. Skipped in the Divi Visual Builder,
+    // where the hidden section would otherwise be impossible to edit.
+    $in_builder = isset( $_GET['et_fb'] ) || ( function_exists( 'et_core_is_fb_enabled' ) && et_core_is_fb_enabled() );
+    if ( ! $in_builder ) {
+        $search_css = 'assets/css/header-search.css';
+        $search_js = 'assets/js/header-search.js';
+        wp_enqueue_style( 'mctc-header-search', plugins_url( $search_css, __FILE__ ), array(), (string) filemtime( plugin_dir_path( __FILE__ ) . $search_css ) );
+        wp_enqueue_script( 'mctc-header-search', plugins_url( $search_js, __FILE__ ), array(), (string) filemtime( plugin_dir_path( __FILE__ ) . $search_js ), true );
+    }
 } );
 
 add_filter( 'nav_menu_item_id', function ( $id, $item, $args ) {

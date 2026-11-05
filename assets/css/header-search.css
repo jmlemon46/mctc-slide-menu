@@ -1,0 +1,36 @@
+/*
+ * MCTC header search: #header-search-section drops down below the header when .search-icon is clicked.
+ * The open state is .is-open, toggled by assets/js/header-search.js.
+ * !important is used only where Divi's own section styles would otherwise win.
+ */
+
+/* Anchor the dropdown to the header. */
+.et-l--header { position: relative; }
+
+/* Hidden: invisible, not clickable, and skipped by keyboard Tab (visibility, not just opacity). */
+#header-search-section {
+  position: absolute !important;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden !important;
+  transform: translateY(-15px);
+  transition: opacity .3s ease, transform .3s ease, visibility 0s linear .3s;
+}
+
+/* Open. It overlays the page below instead of pushing it down. */
+#header-search-section.is-open {
+  opacity: 1;
+  visibility: visible !important;
+  transform: translateY(0);
+  transition: opacity .3s ease, transform .3s ease, visibility 0s;
+}
+
+.search-icon { cursor: pointer; }
+.search-icon:focus-visible { outline: 3px solid var(--mctc-blue, #2075bc); outline-offset: 3px; border-radius: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  #header-search-section, #header-search-section.is-open { transform: none; transition: none; }
+}

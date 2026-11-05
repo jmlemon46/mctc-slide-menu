@@ -115,6 +115,16 @@ body .mctc-dialog .mctc-link--top { text-transform: uppercase; letter-spacing: .
 body .mctc-dialog.header-menu .mctc-link:hover { text-decoration: none; }
 ```
 
+## Header search
+The plugin also turns a Divi header section into a drop-down search bar. It needs no shortcode, just two names in the header template:
+
+- Give the magnifying-glass **Icon module** the CSS class `search-icon` (Advanced → CSS ID & Classes).
+- Give the **section** holding the Ajax Search Pro form the CSS ID `header-search-section`. Place it directly below the main header section.
+
+On the live site the section is hidden until the icon is clicked. Then it fades and slides down over the page (it doesn't push the page down), and the cursor goes into the search box. It closes when you click the icon again, press Escape, click outside it, or open the hamburger menu. Clicks in Ajax Search Pro's results don't close it. The icon works as a keyboard button (Tab to it, then Enter or Space). The section stays visible in the Divi Visual Builder so you can edit it.
+
+Files: `assets/css/header-search.css` and `assets/js/header-search.js`. The open state is `#header-search-section.is-open`.
+
 ## Behavior and design
 - **Desktop (`columns`)**: a right-hand drawer up to 840px wide showing the whole menu as a sitemap. Each main page is a blue heading with its sub pages listed beneath, flowing into up to three columns. Nothing needs to be clicked open.
 - **Desktop (`accordion`)**: a single column of collapsible sections, like mobile.
