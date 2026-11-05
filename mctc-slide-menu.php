@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: MCTC Slide Menu
- * Description: Accessible right-side navigation with separate desktop and mobile WordPress menus. Shortcode: [mctc_menu desktop="desktop-menu" mobile="mobile-menu"]
- * Version: 1.2.1
+ * Plugin Name: MCTC Site Tools
+ * Description: Site features for Mountwest: the slide-in hamburger menu ([mctc_menu desktop="Menu Name"]), the header search drop-down, and accessibility fixes for Divi and Ajax Search Pro.
+ * Version: 1.3.0
  * Plugin URI: https://github.com/jmlemon46/mctc-slide-menu
  * Requires at least: 6.0
  * Requires PHP: 7.4
@@ -32,14 +32,18 @@ add_action( 'wp_enqueue_scripts', function () {
     wp_enqueue_style( 'mctc-slide-menu', plugins_url( $css, __FILE__ ), array(), (string) filemtime( plugin_dir_path( __FILE__ ) . $css ) );
     wp_enqueue_script( 'mctc-slide-menu', plugins_url( $js, __FILE__ ), array(), (string) filemtime( plugin_dir_path( __FILE__ ) . $js ), true );
 
-    // Header search toggle for .search-icon and #header-search-section. Skipped in the Divi Visual Builder,
-    // where the hidden section would otherwise be impossible to edit.
+    // Header search and accessibility fixes. Skipped in the Divi Visual Builder, where the hidden search
+    // section would otherwise be impossible to edit.
     $in_builder = isset( $_GET['et_fb'] ) || ( function_exists( 'et_core_is_fb_enabled' ) && et_core_is_fb_enabled() );
     if ( ! $in_builder ) {
         $search_css = 'assets/css/header-search.css';
         $search_js = 'assets/js/header-search.js';
         wp_enqueue_style( 'mctc-header-search', plugins_url( $search_css, __FILE__ ), array(), (string) filemtime( plugin_dir_path( __FILE__ ) . $search_css ) );
         wp_enqueue_script( 'mctc-header-search', plugins_url( $search_js, __FILE__ ), array(), (string) filemtime( plugin_dir_path( __FILE__ ) . $search_js ), true );
+
+        // Accessibility fixes for markup from Divi and Ajax Search Pro (unlabeled icons, empty video play links).
+        $a11y_js = 'assets/js/a11y-fixes.js';
+        wp_enqueue_script( 'mctc-a11y-fixes', plugins_url( $a11y_js, __FILE__ ), array(), (string) filemtime( plugin_dir_path( __FILE__ ) . $a11y_js ), true );
     }
 } );
 

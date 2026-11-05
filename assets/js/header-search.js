@@ -70,32 +70,6 @@
     }
   });
 
-  // Ajax Search Pro draws its icons as unlabeled SVGs, which accessibility checkers report as missing
-  // alternative text. They're decorative (their buttons have their own labels), so hide them from screen
-  // readers. It adds more icons with each set of results, so newly added ones are handled too.
-  const ASP_AREAS = '.asp_w, .asp_r, .asp_s, .asp_sb, .asp_hidden_data, .asp_data_container';
-  function hideAspIcons(root) {
-    const svgs = root.matches?.('svg') ? [root] : Array.from(root.querySelectorAll?.('svg') || []);
-    svgs.forEach(svg => {
-      if (svg.hasAttribute('aria-hidden') || svg.hasAttribute('aria-label') || svg.hasAttribute('aria-labelledby') || svg.querySelector('title')) return;
-      if (!svg.closest(ASP_AREAS)) return;
-      svg.setAttribute('aria-hidden', 'true');
-      svg.setAttribute('focusable', 'false');
-    });
-  }
-  function watchAspIcons() {
-    hideAspIcons(document.body);
-    new MutationObserver(mutations => {
-      mutations.forEach(mutation => mutation.addedNodes.forEach(node => {
-        if (node.nodeType === 1) hideAspIcons(node);
-      }));
-    }).observe(document.body, { childList: true, subtree: true });
-  }
-
-  function init() {
-    prepareIcons();
-    watchAspIcons();
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
-  else init();
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', prepareIcons);
+  else prepareIcons();
 })();

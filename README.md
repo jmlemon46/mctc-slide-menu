@@ -1,4 +1,6 @@
-# MCTC slide-in WordPress menu
+# MCTC Site Tools
+
+A WordPress plugin with Mountwest's site features: the slide-in hamburger menu, the header search drop-down, and accessibility fixes for Divi and Ajax Search Pro. It shows as **MCTC Site Tools** on the Plugins screen; its folder and this repository are still named `mctc-slide-menu`, and should stay that way so updates keep working.
 
 ## Install
 1. Use `mctc-slide-menu.zip` from the repository root. To rebuild it after editing, run `./build-zip.sh` there.
@@ -121,9 +123,15 @@ The plugin also turns a Divi header section into a drop-down search bar. It need
 - Give the magnifying-glass **Icon module** the CSS class `search-icon` (Advanced → CSS ID & Classes).
 - Give the **section** holding the Ajax Search Pro form the CSS ID `header-search-section`. Place it directly below the main header section.
 
-On the live site the section is hidden until the icon is clicked. Then it fades and slides down over the page (it doesn't push the page down), and the cursor goes into the search box. It closes when you click the icon again, press Escape, click outside it, or open the hamburger menu. Clicks in Ajax Search Pro's results don't close it. The icon works as a keyboard button (Tab to it, then Enter or Space). The section stays visible in the Divi Visual Builder so you can edit it. Ajax Search Pro's icons (magnifier, settings, close, and icons in results) are marked decorative so accessibility checkers don't report them as missing alternative text.
+On the live site the section is hidden until the icon is clicked. Then it fades and slides down over the page (it doesn't push the page down), and the cursor goes into the search box. It closes when you click the icon again, press Escape, click outside it, or open the hamburger menu. Clicks in Ajax Search Pro's results don't close it. The icon works as a keyboard button (Tab to it, then Enter or Space). The section stays visible in the Divi Visual Builder so you can edit it.
 
 Files: `assets/css/header-search.css` and `assets/js/header-search.js`. The open state is `#header-search-section.is-open`.
+
+## Accessibility fixes
+`assets/js/a11y-fixes.js` fixes markup from other plugins that their settings can't fix. It also handles anything added to the page later, such as search results.
+
+- **Ajax Search Pro icons** (magnifier, settings, close, and icons in results) are marked decorative, so checkers don't report missing alternative text.
+- **Divi Video module play button**: with an image overlay, Divi adds an empty play link that checkers report as an empty link. It's labeled "Play video: " plus the video's title (from the YouTube embed) and works as a button, including the Space key.
 
 ## Behavior and design
 - **Desktop (`columns`)**: a right-hand drawer up to 840px wide showing the whole menu as a sitemap. Each main page is a blue heading with its sub pages listed beneath, flowing into up to three columns. Nothing needs to be clicked open.
