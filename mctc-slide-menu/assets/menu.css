@@ -77,13 +77,14 @@ dialog.mctc-dialog:not([open]) { display: none; }
 
 /* Menu items */
 .mctc-dialog .mctc-tree { display: grid; grid-template-columns: 1fr; gap: 12px; }
-.mctc-dialog .mctc-item--top { border-bottom: 1px solid var(--_divider); padding-bottom: 12px; }
 .mctc-dialog .mctc-row { display: flex; gap: 8px; align-items: center; }
 .mctc-dialog .mctc-link { display: flex; align-items: center; min-height: 44px; flex: 1; padding: 10px 8px; color: var(--_link); font-family: inherit; font-size: var(--_link-size); font-weight: var(--_link-weight); line-height: 1.45; text-decoration: none; overflow-wrap: anywhere; white-space: normal; }
 .mctc-dialog .mctc-link--top { color: var(--_heading); font-size: var(--_heading-size); font-weight: var(--_heading-weight); }
 .mctc-dialog .mctc-link:hover { color: var(--_hover); text-decoration: underline; text-underline-offset: 4px; }
 .mctc-dialog .mctc-link[aria-current="page"] { color: var(--_current); text-decoration: underline; text-underline-offset: 4px; }
-.mctc-dialog .mctc-submenu { padding-left: 12px; margin: 6px 0 0 8px; border-left: 2px solid var(--_divider); }
+/* Sub pages line up with their main link; deeper levels are indented a little. */
+.mctc-dialog .mctc-submenu { margin-top: 6px; }
+.mctc-dialog .mctc-submenu .mctc-submenu { padding-left: 16px; }
 
 /* Desktop "columns" layout: a sitemap with every sub page visible, flowing into columns without gaps.
    The desktop nav is hidden at 980px and below, so these rules never affect mobile. */
@@ -103,10 +104,6 @@ dialog.mctc-dialog:not([open]) { display: none; }
   .mctc-scroll { padding: 4px 16px max(32px, env(safe-area-inset-bottom)); }
   .mctc-dialog .mctc-desktop { display: none; }
   .mctc-dialog .mctc-mobile { display: block; }
-  /* Mobile: no divider lines, and first-level sub pages line up with their main link. */
-  .mctc-dialog .mctc-mobile .mctc-item--top { border-bottom: 0; padding-bottom: 0; }
-  .mctc-dialog .mctc-mobile .mctc-submenu { border-left: 0; }
-  .mctc-dialog .mctc-mobile .mctc-item--top > .mctc-submenu { padding-left: 0; margin-left: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .mctc-panel, .mctc-dialog::backdrop, .mctc-expand svg { transition: none; }

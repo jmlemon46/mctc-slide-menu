@@ -67,7 +67,7 @@ Set these on `.mctc-dialog` / `.mctc-trigger`, on your own `class`, or on `:root
 | `--mctc-menu-link` / `-link-size` / `-link-weight` | navy / `16px` / `450` | Sub-page links (and the X icon) |
 | `--mctc-menu-hover` | forest | Link hover color |
 | `--mctc-menu-current` | forest | Link to the page you're on |
-| `--mctc-menu-divider` | `#dbe7ef` | Divider lines and sub-page rule |
+| `--mctc-menu-divider` | `#dbe7ef` | Border around the X button |
 | `--mctc-menu-button-bg` | mist | X and arrow button background |
 | `--mctc-menu-button-hover-bg` / `-button-hover-color` | navy / white | X and arrow hover |
 | `--mctc-menu-focus` | blue | Keyboard focus outline |
