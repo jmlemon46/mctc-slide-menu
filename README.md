@@ -121,7 +121,7 @@ The plugin also turns a Divi header section into a drop-down search bar. It need
 - Give the magnifying-glass **Icon module** the CSS class `search-icon` (Advanced → CSS ID & Classes).
 - Give the **section** holding the Ajax Search Pro form the CSS ID `header-search-section`. Place it directly below the main header section.
 
-On the live site the section is hidden until the icon is clicked. Then it fades and slides down over the page (it doesn't push the page down), and the cursor goes into the search box. It closes when you click the icon again, press Escape, click outside it, or open the hamburger menu. Clicks in Ajax Search Pro's results don't close it. The icon works as a keyboard button (Tab to it, then Enter or Space). The section stays visible in the Divi Visual Builder so you can edit it.
+On the live site the section is hidden until the icon is clicked. Then it fades and slides down over the page (it doesn't push the page down), and the cursor goes into the search box. It closes when you click the icon again, press Escape, click outside it, or open the hamburger menu. Clicks in Ajax Search Pro's results don't close it. The icon works as a keyboard button (Tab to it, then Enter or Space). The section stays visible in the Divi Visual Builder so you can edit it. Ajax Search Pro's icons (magnifier, settings, close, and icons in results) are marked decorative so accessibility checkers don't report them as missing alternative text.
 
 Files: `assets/css/header-search.css` and `assets/js/header-search.js`. The open state is `#header-search-section.is-open`.
 

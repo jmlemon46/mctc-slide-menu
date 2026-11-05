@@ -2,7 +2,7 @@
 /**
  * Plugin Name: MCTC Slide Menu
  * Description: Accessible right-side navigation with separate desktop and mobile WordPress menus. Shortcode: [mctc_menu desktop="desktop-menu" mobile="mobile-menu"]
- * Version: 1.2.0
+ * Version: 1.2.1
  * Plugin URI: https://github.com/jmlemon46/mctc-slide-menu
  * Requires at least: 6.0
  * Requires PHP: 7.4
