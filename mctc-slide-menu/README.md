@@ -1,8 +1,8 @@
 # MCTC slide-in WordPress menu
 
 ## Install
-1. Zip the `mctc-slide-menu` folder (the one containing `mctc-slide-menu.php`).
-2. In WordPress, go to **Plugins → Add New Plugin → Upload Plugin**, upload the zip, install, and activate.
+1. Use `mctc-slide-menu.zip` from the repository root. To rebuild it after editing, run `./build-zip.sh` there.
+2. In WordPress, go to **Plugins → Add New Plugin → Upload Plugin**, upload the zip, install, and activate. To update an installed copy, upload the new zip the same way and choose **Replace current with uploaded**.
 3. Set up your menus under **Appearance → Menus**. Indent items under their parent to create submenus.
 4. In **Divi → Theme Builder**, edit your global header. Add a **Text module**, switch its editor to Text mode, and paste the shortcode below. Keep this module visible on desktop, tablet, and phone. If the Text module adds stray `<p>` or `<br>` tags around the button, use a **Code module** instead.
 
